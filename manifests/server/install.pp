@@ -85,8 +85,7 @@ class minio::server::install (
   String $service_provider                                                  = $minio::server::service_provider,
   Stdlib::Absolutepath $cert_directory                                      = $minio::server::cert_directory,
   Optional[Stdlib::Absolutepath] $custom_configuration_file_path            = $minio::server::custom_configuration_file_path,
-  ) {
-
+) {
   $configuration_file_path = pick($custom_configuration_file_path, "${configuration_directory}/config")
 
   [$storage_root].flatten().each | $storage | {
@@ -120,9 +119,9 @@ class minio::server::install (
   }
 
   if ($package_ensure) {
-    $kernel_down=downcase($::kernel)
+    $kernel_down=downcase($facts['kernel'])
 
-    case $::architecture {
+    case $facts['os']['architecture'] {
       /(x86_64)/: {
         $arch = 'amd64'
       }
@@ -130,7 +129,7 @@ class minio::server::install (
         $arch = '386'
       }
       default: {
-        $arch = $::architecture
+        $arch = $facts['os']['architecture']
       }
     }
 
@@ -143,7 +142,7 @@ class minio::server::install (
       digest_type   => $checksum_type,
       url           => $source_url,
     }
-    -> file {"${installation_directory}/minio":
+    -> file { "${installation_directory}/minio":
       group => $group,
       mode  => '0744',
       owner => $owner,
