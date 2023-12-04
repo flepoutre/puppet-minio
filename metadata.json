@@ -5,7 +5,7 @@
   "summary": "A module to manage Minio to enjoy self-hosted S3 storage",
   "license": "Apache-2.0",
   "source": "https://github.com/kogitoapp/puppet-minio.git",
-  "project_page": "https://github.com/kogitoapp/puppet-minio",
+  "project_page": "https://github.com/flepoutre/puppet-minio",
   "issues_url": "https://github.com/kogitoapp/puppet-minio/issues",
   "dependencies": [
     {
